@@ -76,8 +76,12 @@ all_my_edges = pd.concat([all_my_edges, all_my_edges_temp], ignore_index = True,
 
 
 # We want to predict the interaction weight, i.e. the label of interaction node
-interaction_weight = sirna_efficacy_pd['efficacy']
-interaction_weight = interaction_weight.set_axis(interaction_pd.index)
+# We want to predict the interaction weight, i.e. the label of interaction node
+interaction_weight = sirna_efficacy_pd['efficacy'].values
+interaction_weight_series = pd.Series(
+    interaction_weight, 
+    index=interaction_pd.index
+)
 
 
 
@@ -111,8 +115,9 @@ for repeat in range(1):
     
     # perform 10-fold cross validation
     kfold = KFold(n_splits=10, shuffle=True, random_state = 2)
-    for train, test in kfold.split(interaction_weight):
-        train_interaction, test_interaction = interaction_weight[train], interaction_weight[test]
+    for train, test in kfold.split(interaction_weight_series):
+        train_interaction = interaction_weight_series.iloc[train]
+        test_interaction = interaction_weight_series.iloc[test]
 
         myfold = myfold + 1
     
@@ -163,9 +168,10 @@ for repeat in range(1):
 
 # Now we have trained the model we can evaluate on the test set.
         pred= model.predict(test_gen)
+        pred = pred.flatten()
 
 # Calculate the PCC and MSE scores
-        pearson = scipy.stats.pearsonr(test_interaction,pred)
+        pearson = scipy.stats.pearsonr(test_interaction.values, pred)
         score_PCC.append(pearson[0])
     
         mse_run = mean_squared_error(test_interaction, pred)
