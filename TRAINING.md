@@ -2,71 +2,22 @@
 
 ## 环境准备
 
-### 1. 安装 pixi
-
 ```bash
-curl -fsSL https://pixi.sh/install.sh | bash
-```
-
-### 2. 初始化 pixi 项目
-
-```bash
-cd GNN4siRNA
-pixi init gnn4sirna-env
 cd gnn4sirna-env
-```
-
-### 3. 配置 pixi.toml
-
-将以下内容替换 `pixi.toml`:
-
-```toml
-[workspace]
-channels = ["conda-forge"]
-name = "gnn4sirna-env"
-platforms = ["linux-64"]
-version = "0.1.0"
-
-[tasks]
-
-[dependencies]
-python = "3.11.*"
-pandas = "*"
-numpy = "*"
-scikit-learn = "*"
-scipy = "*"
-tensorflow = { version = "2.12.*", channel = "conda-forge" }
-
-[pypi-dependencies]
-stellargraph = "*"
-chardet = "*"
-```
-
-### 4. 安装环境
-
-```bash
-pixi install
+pixi shell
+cd ..
 ```
 
 ## 运行训练
 
-### 方法一：使用 pixi exec
-
 ```bash
-cd GNN4siRNA
-pixi exec -p gnn4sirna-env python model/GNN4siRNA.py
-```
-
-### 方法二：直接调用环境中的 Python
-
-```bash
-cd GNN4siRNA/gnn4sirna-env
-./.pixi/envs/default/bin/python ../model/GNN4siRNA.py
+cd model
+python model/GNN4siRNA.py
 ```
 
 ## 训练配置
 
-训练使用 `model/params.py` 中的配置：
+训练使用 `model/params.py` 中的原有配置，未进行调整：
 
 - 数据集：dataset_2（702个siRNA-mRNA相互作用）
 - batch_size: 60
@@ -82,10 +33,11 @@ cd GNN4siRNA/gnn4sirna-env
 
 - **Overall PCC (Pearson相关系数): 0.3423**
 - **Overall MSE (均方误差): 0.0397**
+- 实际训练结果PCC和MSE有所浮动
 
 ## 代码修改说明
 
-原代码针对旧版pandas编写，需进行以下修改以兼容新版pandas：
+原代码针对旧版pandas编写，Minimax+Opencode对以下部分进行了修改以保证运行，暂未进行人工核对：
 
 1. `model/GNN4siRNA.py` 第79-83行：修改索引设置方式
 2. 第114-115行：使用 `.iloc[]` 进行索引切片
