@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from Bio import SeqIO
 from Bio.Seq import Seq
-from params
+import params
 
 ### create a sirna rev-compl --> mRNA target file
 
