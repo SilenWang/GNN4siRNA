@@ -6,8 +6,6 @@ Created on Thu Mar 31 13:10:50 2022
 @author: fiannaca
 """
 
-
-
 import stellargraph as StellarGraph
 import pandas as pd
 import numpy as np
@@ -25,6 +23,16 @@ from tensorflow.keras import layers, Model, optimizers
 # import file with parameters
 import params
 
+
+import tensorflow as tf
+
+if params.device == "gpu":
+    gpus = tf.config.list_physical_devices("GPU")
+    if not gpus:
+        raise RuntimeError("GPU device requested but no GPU available")
+    tf.config.set_visible_devices(gpus[0], "GPU")
+else:
+    tf.config.set_visible_devices([], "GPU")
 
 
 # Specify the minibatch size and the number of epochs for training the model
