@@ -2,14 +2,14 @@
 # INPUT FILES: path of the three input files
 ##################
 
-#k-mers of siRNA sequences
-sirna_kmer_file = "../data/processed/dataset_2/sirna_kmers.txt"
-#k-mers of mRNA sequences
-mrna_kmer_file = "../data/processed/dataset_2/target_kmers.txt"
-#thermodynamic features of siRNA-mRNA interaction
-sirna_target_thermo_file = "../data/processed/dataset_2/sirna_target_thermo.csv"
+# k-mers of siRNA sequences
+sirna_kmer_file = "../data/processed/dataset_1/sirna_kmers.txt"
+# k-mers of mRNA sequences
+mrna_kmer_file = "../data/processed/dataset_1/mRNA_kmers.txt"
+# thermodynamic features of siRNA-mRNA interaction
+sirna_target_thermo_file = "../data/processed/dataset_1/sirna_target_thermo.csv"
 # sirna_efficacy_values
-sirna_efficacy_file = "../data/processed/dataset_2/sirna_mrna_efficacy.csv"
+sirna_efficacy_file = "../data/processed/dataset_1/sirna_mrna_efficacy.csv"
 
 ##################
 # GNN Hyperparameters
@@ -29,11 +29,10 @@ hop_samples = [8, 4]
 dropout = 0.15
 
 # Adamax learning rate
-lr= 0.001
+lr = 0.001
 
 # loss function
-loss='mse'
+loss = "mse"
 
-
-
-
+# 设备选择: "cpu" 或 "gpu"
+device = "gpu"
