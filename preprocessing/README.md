@@ -2,7 +2,7 @@
 
 ## 测试环境
 
-- Python 3.14
+- Python 3.11
 - numpy
 - pandas  
 - biopython
@@ -46,7 +46,7 @@ python 3_make_sirna_mrna.py
 输出文件：
 - `datase_tofold.csv` - siRNA-mRNA配对数据
 
-**注意**：脚本中 `from params` 需要改为 `import params` 以兼容Python 3
+**注意**：脚本中 `from params` 修复为 `import params`
 
 ## 测试结果
 
